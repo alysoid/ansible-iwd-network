@@ -53,7 +53,7 @@
 
 - name: Generate iwd network files
   template:
-    src: iwd_conf.j2
+    src: iwd_network.j2
     dest: "/var/lib/iwd/{{ item.key }}"
     owner: root
     mode: '0600'
