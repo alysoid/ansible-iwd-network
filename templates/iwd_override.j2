@@ -1,0 +1,5 @@
+[Unit]
+{% for iface in ansible_interfaces if iface.startswith('wl') %}
+BindsTo=sys-subsystem-net-devices-{{ iface }}.device
+After=sys-subsystem-net-devices-{{ iface }}.device
+{% endfor %}

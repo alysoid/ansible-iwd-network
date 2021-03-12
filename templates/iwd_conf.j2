@@ -1,0 +1,13 @@
+# {{ ansible_managed }}
+# See iwd.config(5) for details.
+
+{% for config in item.value %}
+{% for section, options in config.items() %}
+[{{ section }}]
+{% for option in options %}
+{% for key, value in option.items() %}
+{{ key }}={{ value }}
+{% endfor %}
+{% endfor %}
+{% endfor %}
+{% endfor %}

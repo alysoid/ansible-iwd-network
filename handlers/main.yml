@@ -1,0 +1,11 @@
+---
+- name: Restart iwd
+  service:
+    name: iwd
+    state: restarted
+
+- name: iwd daemon-reload
+  systemd:
+    daemon_reload: yes
+    state: restarted
+    name: iwd
