@@ -1,7 +1,5 @@
 iwd_conf_cleanup: no
-iwd_network_cleanup: no
-
 iwd_conf: {}
-iwd_network_open: {}
-iwd_network_psk: {}
-iwd_network_8021x: {}
+
+iwd_network_cleanup: no
+iwd_network: {}

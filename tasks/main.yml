@@ -51,29 +51,11 @@
   when: iwd_network_cleanup
   notify: Restart iwd
 
-- name: Generate iwd open network files
+- name: Generate iwd network files
   template:
     src: iwd_conf.j2
-    dest: "/var/lib/iwd/{{ item.key }}.open"
+    dest: "/var/lib/iwd/{{ item.key }}"
     owner: root
     mode: '0600'
-  loop: "{{ iwd_network_open | dict2items }}"
-  notify: Restart iwd
-
-- name: Generate iwd psk network files
-  template:
-    src: iwd_conf.j2
-    dest: "/var/lib/iwd/{{ item.key }}.psk"
-    owner: root
-    mode: '0600'
-  loop: "{{ iwd_network_psk | dict2items }}"
-  notify: Restart iwd
-
-- name: Generate iwd 8021x network files
-  template:
-    src: iwd_conf.j2
-    dest: "/var/lib/iwd/{{ item.key }}.8021x"
-    owner: root
-    mode: '0600'
-  loop: "{{ iwd_network_8021x | dict2items }}"
+  loop: "{{ iwd_network | dict2items }}"
   notify: Restart iwd
