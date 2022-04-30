@@ -1,26 +1,26 @@
 ---
 - name: Create systemd override directory for iwd
-  file:
+  ansible.builtin.file:
     path: /etc/systemd/system/iwd.service.d
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Generate iwd service override file
-  template:
+  ansible.builtin.template:
     src: iwd_override.j2
     dest: /etc/systemd/system/iwd.service.d/override.conf
-    mode: '0644'
+    mode: "0644"
   notify: iwd daemon-reload
 
 - name: Check existing configuration files
-  find:
+  ansible.builtin.find:
     paths: /etc/iwd
-    patterns: '*.conf'
+    patterns: "*.conf"
   when: iwd_conf_cleanup
   register: existing_config
 
 - name: Remove existing configuration files
-  file:
+  ansible.builtin.file:
     path: "{{ item.path }}"
     state: absent
   loop: "{{ existing_config.files }}"
@@ -28,23 +28,23 @@
   notify: Restart iwd
 
 - name: Generate iwd configuration files
-  template:
+  ansible.builtin.template:
     src: iwd_conf.j2
     dest: "/etc/iwd/{{ item.key }}.conf"
     owner: root
-    mode: '0644'
+    mode: "0644"
   loop: "{{ iwd_conf | dict2items }}"
   notify: Restart iwd
 
 - name: Check existing network files
-  find:
+  ansible.builtin.find:
     paths: /var/lib/iwd
-    patterns: '*.open,*.psk,*.8021x'
+    patterns: "*.open,*.psk,*.8021x"
   when: iwd_network_cleanup
   register: existing_network
 
 - name: Remove existing network files
-  file:
+  ansible.builtin.file:
     path: "{{ item.path }}"
     state: absent
   loop: "{{ existing_network.files }}"
@@ -52,10 +52,10 @@
   notify: Restart iwd
 
 - name: Generate iwd network files
-  template:
+  ansible.builtin.template:
     src: iwd_network.j2
     dest: "/var/lib/iwd/{{ item.key }}"
     owner: root
-    mode: '0600'
+    mode: "0600"
   loop: "{{ iwd_network | dict2items }}"
   notify: Restart iwd
