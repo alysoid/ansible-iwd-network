@@ -1,3 +1,6 @@
+# {{ ansible_managed }}
+# Start iwd after wireless interface is up.
+
 [Unit]
 {% for iface in ansible_interfaces if iface.startswith('wl') %}
 BindsTo=sys-subsystem-net-devices-{{ iface }}.device
