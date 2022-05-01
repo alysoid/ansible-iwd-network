@@ -1,11 +1,11 @@
 ---
 - name: Restart iwd
-  service:
+  ansible.builtin.service:
     name: iwd
     state: restarted
 
 - name: iwd daemon-reload
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: yes
     state: restarted
     name: iwd
