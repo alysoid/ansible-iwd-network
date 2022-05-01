@@ -1,14 +1,23 @@
 ---
-- name: Create systemd override directory for iwd
+- name: Create /etc/iwd directory
+  ansible.builtin.file:
+    path: /etc/iwd
+    state: directory
+    owner: root
+    mode: "0755"
+
+- name: Create systemd service directory for iwd
   ansible.builtin.file:
     path: /etc/systemd/system/iwd.service.d
     state: directory
+    owner: root
     mode: "0755"
 
 - name: Generate iwd service override file
   ansible.builtin.template:
     src: iwd_override.j2
     dest: /etc/systemd/system/iwd.service.d/override.conf
+    owner: root
     mode: "0644"
   notify: iwd daemon-reload
 
