@@ -30,10 +30,12 @@
 - name: Generate iwd configuration files
   ansible.builtin.template:
     src: iwd_conf.j2
-    dest: "/etc/iwd/{{ item.key }}.conf"
+    dest: "/etc/iwd/{{ item.name }}.conf"
     owner: root
     mode: "0644"
-  loop: "{{ iwd_conf | dict2items }}"
+  vars:
+    - current_item: "{{ item.options }}"
+  loop: "{{ iwd_conf }}"
   notify: Restart iwd
 
 - name: Check existing network files
@@ -54,8 +56,10 @@
 - name: Generate iwd network files
   ansible.builtin.template:
     src: iwd_network.j2
-    dest: "/var/lib/iwd/{{ item.key }}"
+    dest: "/var/lib/iwd/{{ item.name }}"
     owner: root
     mode: "0600"
-  loop: "{{ iwd_network | dict2items }}"
+  vars:
+    - current_item: "{{ item.options }}"
+  loop: "{{ iwd_network }}"
   notify: Restart iwd

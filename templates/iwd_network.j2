@@ -1,14 +1,10 @@
 # {{ ansible_managed }}
 # See iwd.network(5) for details.
 
-{% for config in item.value %}
-{% for section, options in config.items() %}
+{% for section, settings in current_item.items() %}
 [{{ section }}]
-{% for option in options %}
-{% for key, value in option.items() %}
+{% for key, value in settings.items() %}
 {{ key }}={{ value }}
 {% endfor %}
-{% endfor %}
 
-{% endfor %}
 {% endfor %}
