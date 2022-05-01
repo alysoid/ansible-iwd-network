@@ -1,6 +1,12 @@
 ---
-iwd_conf_cleanup: no
+# Define `main.conf` configuration file
 iwd_conf: []
 
-iwd_network_cleanup: no
+# Define wireless configuration files for networks
 iwd_network: []
+
+# Remove all existing iwd configuration files when true
+iwd_conf_cleanup: false
+
+# Remove all existing iwd network configuration files when true
+iwd_network_cleanup: false
