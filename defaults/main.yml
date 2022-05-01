@@ -1,5 +1,6 @@
+---
 iwd_conf_cleanup: no
-iwd_conf: {}
+iwd_conf: []
 
 iwd_network_cleanup: no
-iwd_network: {}
+iwd_network: []
