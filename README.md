@@ -4,14 +4,14 @@ Manage system wireless network via [iwd](https://man.archlinux.org/man/iwd.8.en)
 
 ## Role default variables
 
-| Variable              | Default | Info                                                                                  |
-| --------------------- | ------- | ------------------------------------------------------------------------------------- |
-| `iwd_conf`            | `[]`    | Manage `main.conf` configuration file. Configures system-wide settings for iwd.       |
-| `iwd_network`         | `[]`    | Create `/var/lib/iwd/*.open,*.psk,*.8021x` wireless configuration files for networks. |
-| `iwd_conf_cleanup`    | `no`    | Remove existing configuration files: `/etc/iwd/*.conf`.                               |
-| `iwd_network_cleanup` | `no`    | Remove existing network configuration files: `/var/lib/iwd/*.open,*.psk,*.8021x`.     |
+| Variable                     | Default | Info                                                                                  |
+| ---------------------------- | ------- | ------------------------------------------------------------------------------------- |
+| `catena_iwd_conf`            | `[]`    | Manage `main.conf` configuration file. Configures system-wide settings for iwd.       |
+| `catena_iwd_network`         | `[]`    | Create `/var/lib/iwd/*.open,*.psk,*.8021x` wireless configuration files for networks. |
+| `catena_iwd_conf_cleanup`    | `no`    | Remove existing configuration files: `/etc/iwd/*.conf`.                               |
+| `catena_iwd_network_cleanup` | `no`    | Remove existing network configuration files: `/var/lib/iwd/*.open,*.psk,*.8021x`.     |
 
-### `iwd_conf`
+### `catena_iwd_conf`
 
 Manage [iwd.config](https://man.archlinux.org/man/iwd.config.5) - Configuration file for wireless daemon.
 
@@ -19,10 +19,10 @@ The `/etc/iwd/main.conf` configuration file configures the system-wide settings 
 
 ```yaml
 # Default
-iwd_conf: []
+catena_iwd_conf: []
 
 # Example
-iwd_conf:
+catena_iwd_conf:
   # Create `/etc/iwd/main.conf`
   - name: main
     options:
@@ -40,7 +40,7 @@ iwd_conf:
         DisablePeriodicScan: "true"
 ```
 
-### `iwd_network`
+### `catena_iwd_network`
 
 Manage [iwd.network](https://man.archlinux.org/man/iwd.network.5) - Network configuration for wireless daemon.
 
@@ -48,10 +48,10 @@ iwd monitors the directory `/var/lib/iwd` for changes and updates its state acco
 
 ```yaml
 # Default
-iwd_network: []
+catena_iwd_network: []
 
 # Example
-iwd_network:
+catena_iwd_network:
   # Wireless network configuration files (.open, .psk or .8021x)
   # Create `/var/lib/iwd/wifi_network.psk`, wifi_network is the SSID
   - name: wifi_network.psk

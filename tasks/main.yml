@@ -25,7 +25,7 @@
   ansible.builtin.find:
     paths: /etc/iwd
     patterns: "*.conf"
-  when: iwd_conf_cleanup
+  when: catena_iwd_conf_cleanup
   register: existing_config
 
 - name: Remove existing configuration files
@@ -33,7 +33,7 @@
     path: "{{ item.path }}"
     state: absent
   loop: "{{ existing_config.files }}"
-  when: iwd_conf_cleanup
+  when: catena_iwd_conf_cleanup
   notify: Restart iwd
 
 - name: Generate iwd configuration files
@@ -44,14 +44,14 @@
     mode: "0644"
   vars:
     - current_item: "{{ item.options }}"
-  loop: "{{ iwd_conf }}"
+  loop: "{{ catena_iwd_conf }}"
   notify: Restart iwd
 
 - name: Check existing network files
   ansible.builtin.find:
     paths: /var/lib/iwd
     patterns: "*.open,*.psk,*.8021x"
-  when: iwd_network_cleanup
+  when: catena_iwd_network_cleanup
   register: existing_network
 
 - name: Remove existing network files
@@ -59,7 +59,7 @@
     path: "{{ item.path }}"
     state: absent
   loop: "{{ existing_network.files }}"
-  when: iwd_network_cleanup
+  when: catena_iwd_network_cleanup
   notify: Restart iwd
 
 - name: Generate iwd network files
@@ -70,5 +70,5 @@
     mode: "0600"
   vars:
     - current_item: "{{ item.options }}"
-  loop: "{{ iwd_network }}"
+  loop: "{{ catena_iwd_network }}"
   notify: Restart iwd
